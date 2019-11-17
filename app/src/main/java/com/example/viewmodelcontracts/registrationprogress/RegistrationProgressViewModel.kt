@@ -1,4 +1,4 @@
-package com.example.viewmodelcontractsdemo.registrationprogress
+package com.example.viewmodelcontracts.registrationprogress
 
 import androidx.lifecycle.ViewModel
 

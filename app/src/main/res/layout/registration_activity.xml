@@ -6,7 +6,7 @@
   android:id="@+id/container"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".RegistrationActivty">
+  tools:context=".RegistrationActivity">
 
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/registration_step_container"
@@ -19,12 +19,29 @@
 
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/registration_progress"
-    android:name="com.example.viewmodelcontractsdemo.registrationprogress.RegistrationProgressFragment"
+    android:name="com.example.viewmodelcontracts.registrationprogress.RegistrationProgressFragment"
     android:layout_width="0dp"
     android:layout_height="0dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toBottomOf="@id/registration_step_container"/>
+
+
+  <Button
+    android:id="@+id/back_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Back"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+  <Button
+    android:id="@+id/next_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Next"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

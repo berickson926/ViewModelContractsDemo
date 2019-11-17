@@ -1,4 +1,4 @@
-package com.example.viewmodelcontractsdemo
+package com.example.viewmodelcontracts
 
 import org.junit.Test
 

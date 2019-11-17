@@ -1,4 +1,4 @@
-package com.example.viewmodelcontractsdemo.utils
+package com.example.viewmodelcontracts
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
