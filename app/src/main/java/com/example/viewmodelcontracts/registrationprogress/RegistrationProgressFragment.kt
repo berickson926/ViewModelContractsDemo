@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.R
 import com.example.viewmodelcontracts.parentViewModel
-
+import com.example.viewmodelcontracts.registerParentViewModel
 
 class RegistrationProgressFragment : Fragment() {
 
@@ -40,11 +39,19 @@ class RegistrationProgressFragment : Fragment() {
     }
 
     private fun View.setVisibility(visible: Boolean) {
-        if (visible && !isVisible) {
-            visibility = View.VISIBLE
-        } else if (!visible && isVisible) {
-            visibility = View.GONE
+        // naively set visibility regardless of current view state
+        visibility = if (visible) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
-        // else, do nothing
+    }
+
+    companion object {
+        fun <T: RegistrationProgressViewModel> newInstance(parentViewModel: Class<T>): RegistrationProgressFragment {
+            return RegistrationProgressFragment().apply {
+                arguments = registerParentViewModel(parentViewModel)
+            }
+        }
     }
 }

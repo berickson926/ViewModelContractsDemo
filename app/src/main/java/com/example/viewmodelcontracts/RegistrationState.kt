@@ -1,12 +1,12 @@
 package com.example.viewmodelcontracts
 
 
-sealed class RegistrationState(val userData: RegistrationData) {
+sealed class RegistrationState {
 
-    class UserNameEntry(userData: RegistrationData) : RegistrationState(userData)
+    object UserNameEntry : RegistrationState()
 
-    class EmailEntry(userData: RegistrationData) : RegistrationState(userData)
+    object EmailEntry : RegistrationState()
 
-    class GenreSelection(userData: RegistrationData) : RegistrationState(userData)
+    object GenreSelection : RegistrationState()
 
 }

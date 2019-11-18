@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.email.EmailEntryFragment
 import com.example.viewmodelcontracts.genre.GenreSelectionFragment
+import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressFragment
 import com.example.viewmodelcontracts.username.UsernameEntryFragment
 
 class RegistrationActivity : AppCompatActivity() {
@@ -17,6 +18,8 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration_activity)
+
+        setupRegistrationProgress()
         setupRegistrationFlow()
 
         findViewById<Button>(R.id.next_button).setOnClickListener {
@@ -28,11 +31,19 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRegistrationProgress() {
+        val registrationProgress = RegistrationProgressFragment.newInstance(viewModel::class.java)
+        supportFragmentManager.beginTransaction()
+            .add(R.id.registration_progress, registrationProgress)
+            .commit()
+    }
+
     private fun setupRegistrationFlow() {
         viewModel.registrationState.observe(this, Observer { state ->
+            var registrationStep: Fragment? = null
             when (state) {
                 is RegistrationState.UserNameEntry ->  {
-                    displayRegistrationStep(UsernameEntryFragment())
+                    registrationStep = UsernameEntryFragment.newInstance(viewModel::class.java)
                 }
                 is RegistrationState.EmailEntry -> {
                     displayRegistrationStep(EmailEntryFragment())
@@ -40,6 +51,10 @@ class RegistrationActivity : AppCompatActivity() {
                 is RegistrationState.GenreSelection -> {
                     displayRegistrationStep(GenreSelectionFragment())
                 }
+            }
+
+            registrationStep?.let {
+                displayRegistrationStep(it)
             }
         })
     }
