@@ -3,4 +3,6 @@
   <string name="user_name">User Name</string>
   <string name="email">Email</string>
   <string name="selected_genres">Selected Genres</string>
+  <string name="back">Back</string>
+  <string name="next">Next</string>
 </resources>

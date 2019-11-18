@@ -2,20 +2,27 @@ package com.example.viewmodelcontracts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.viewmodelcontracts.registrationprogress.Progress
+import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressViewModel
 
 
-class RegistrationViewModel : ViewModel() {
+class RegistrationViewModel : ViewModel(), RegistrationProgressViewModel {
 
     private val _registrationState = MutableLiveData<RegistrationState>()
     val registrationState: LiveData<RegistrationState> = _registrationState
 
-    init {
-        _registrationState.postValue(RegistrationState.UserNameEntry(RegistrationData()))
+    override val registrationProgress: LiveData<Progress> = Transformations.map(_registrationState) {
+        state: RegistrationState -> Progress(
+            userName = state.userData.username.isNotBlank(),
+            email = state.userData.email.isNotBlank(),
+            genres = state.userData.genres.isNotEmpty()
+        )
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    init {
+        _registrationState.postValue(RegistrationState.UserNameEntry(RegistrationData()))
     }
 
     fun onNext() {

@@ -1,11 +1,14 @@
 package com.example.viewmodelcontracts.registrationprogress
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
 
+data class Progress(
+    val userName: Boolean = false,
+    val email: Boolean = false,
+    val genres: Boolean = false
+)
 
-class RegistrationProgressViewModel : ViewModel() {
+interface RegistrationProgressViewModel {
 
-    override fun onCleared() {
-        super.onCleared()
-    }
+    val registrationProgress: LiveData<Progress>
 }

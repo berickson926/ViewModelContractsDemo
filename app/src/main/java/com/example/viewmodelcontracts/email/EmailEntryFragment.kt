@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.viewmodelcontracts.R
 
 
 class EmailEntryFragment : Fragment() {
@@ -14,6 +15,6 @@ class EmailEntryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.email_entry_fragment, container, false)
     }
 }
