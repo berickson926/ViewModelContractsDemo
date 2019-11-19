@@ -31,13 +31,14 @@ class UsernameEntryFragment : Fragment() {
         val userNameEntry = view.findViewById<TextInputEditText>(R.id.user_name_entry)
 
         userNameEntry.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {
+
+            override fun afterTextChanged(input: Editable?) {
                 val username = input?.toString() ?: ""
                 viewModel.updateUsername(username)
             }
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+            override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {}
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         })
     }

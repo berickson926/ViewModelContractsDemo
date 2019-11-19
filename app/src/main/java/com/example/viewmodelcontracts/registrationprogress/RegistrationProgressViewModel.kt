@@ -11,4 +11,5 @@ data class Progress(
 interface RegistrationProgressViewModel {
 
     val registrationProgress: LiveData<Progress>
+
 }

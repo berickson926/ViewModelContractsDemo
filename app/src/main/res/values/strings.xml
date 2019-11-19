@@ -5,4 +5,8 @@
   <string name="selected_genres">Selected Genres</string>
   <string name="back">Back</string>
   <string name="next">Next</string>
+  <string name="select_genres">Select Genres</string>
+  <string name="android_development">Android Development</string>
+  <string name="architecture_components">Architecture Components</string>
+  <string name="jetpack_compose">Jetpack Compose</string>
 </resources>

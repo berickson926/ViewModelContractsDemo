@@ -19,11 +19,12 @@
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/registration_progress"
     android:layout_width="0dp"
-    android:layout_height="0dp"
+    android:layout_height="wrap_content"
     app:layout_constraintBottom_toTopOf="@+id/back_button"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/registration_step_container" />
+    app:layout_constraintTop_toBottomOf="@id/registration_step_container"
+    app:layout_constraintVertical_bias="1"/>
 
   <Button
     android:id="@+id/back_button"

@@ -46,7 +46,7 @@ class RegistrationActivity : AppCompatActivity() {
                     registrationStep = UsernameEntryFragment.newInstance(viewModel::class.java)
                 }
                 is RegistrationState.EmailEntry -> {
-                    displayRegistrationStep(EmailEntryFragment())
+                    registrationStep = EmailEntryFragment.newInstance(viewModel::class.java)
                 }
                 is RegistrationState.GenreSelection -> {
                     displayRegistrationStep(GenreSelectionFragment())

@@ -17,4 +17,9 @@ class GenreSelectionFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.genre_section_fragment, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
 }
