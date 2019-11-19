@@ -40,21 +40,25 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun setupRegistrationFlow() {
         viewModel.registrationState.observe(this, Observer { state ->
-            var registrationStep: Fragment? = null
             when (state) {
-                is RegistrationState.UserNameEntry ->  {
-                    registrationStep = UsernameEntryFragment.newInstance(viewModel::class.java)
+                is RegistrationState.UserNameEntry -> {
+                    val fragment = UsernameEntryFragment.newInstance(viewModel::class.java)
+                    displayRegistrationStep(fragment)
                 }
                 is RegistrationState.EmailEntry -> {
-                    registrationStep = EmailEntryFragment.newInstance(viewModel::class.java)
+                    val fragment = EmailEntryFragment.newInstance(viewModel::class.java)
+                    displayRegistrationStep(fragment)
                 }
                 is RegistrationState.GenreSelection -> {
-                    displayRegistrationStep(GenreSelectionFragment())
+                    val fragment = GenreSelectionFragment.newInstance(viewModel::class.java)
+                    displayRegistrationStep(fragment)
                 }
-            }
-
-            registrationStep?.let {
-                displayRegistrationStep(it)
+                is RegistrationState.GenreSubmission -> {
+                    requestGenreSelections()
+                }
+                is RegistrationState.Complete -> {
+                    displayRegistrationResults(state.userData)
+                }
             }
         })
     }
@@ -63,6 +67,16 @@ class RegistrationActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.registration_step_container, fragment)
             .commit()
+    }
+
+    private fun requestGenreSelections() {
+        val genreSelectionFragment =
+            supportFragmentManager.findFragmentById(R.id.registration_step_container) as GenreSelectionFragment
+        genreSelectionFragment.submitGenreSelections()
+    }
+
+    private fun displayRegistrationResults(userData: RegistrationData) {
+        //TODO: display results in a dialog in lieu of moving to the next part of the 'app'
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.viewmodelcontracts.email.EmailEntryViewModel
+import com.example.viewmodelcontracts.genre.GenreSubmissionViewModel
 import com.example.viewmodelcontracts.registrationprogress.Progress
 import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressViewModel
 import com.example.viewmodelcontracts.username.UsernameEntryViewModel
@@ -13,18 +14,20 @@ import com.example.viewmodelcontracts.username.UsernameEntryViewModel
 class RegistrationViewModel : ViewModel(),
     RegistrationProgressViewModel,
     UsernameEntryViewModel,
-    EmailEntryViewModel {
+    EmailEntryViewModel,
+    GenreSubmissionViewModel {
 
     private val _registrationState = MutableLiveData<RegistrationState>()
     val registrationState: LiveData<RegistrationState> = _registrationState
 
-    override val registrationProgress: LiveData<Progress> = Transformations.map(_registrationState) {
-        state: RegistrationState -> Progress(
-            userName = state.userData.username.isNotBlank(),
-            email = state.userData.email.isNotBlank(),
-            genres = state.userData.genres.isNotEmpty()
-        )
-    }
+    override val registrationProgress: LiveData<Progress> =
+        Transformations.map(_registrationState) { state: RegistrationState ->
+            Progress(
+                userName = state.userData.username.isNotBlank(),
+                email = state.userData.email.isNotBlank(),
+                genres = state.userData.genres.isNotEmpty()
+            )
+        }
 
     init {
         _registrationState.value = RegistrationState.UserNameEntry(RegistrationData())
@@ -38,6 +41,13 @@ class RegistrationViewModel : ViewModel(),
         _registrationState.value?.userData?.email = email
     }
 
+    override fun submitGenreSelections(genres: List<String>) {
+        val userData = _registrationState.value?.userData.apply {
+            this?.genres = genres
+        }
+        _registrationState.value = userData?.let { RegistrationState.Complete(it) }
+    }
+
     fun onNext() {
         val userData = _registrationState.value?.userData ?: RegistrationData()
         when (_registrationState.value) {
@@ -47,7 +57,9 @@ class RegistrationViewModel : ViewModel(),
             is RegistrationState.EmailEntry -> {
                 _registrationState.value = RegistrationState.GenreSelection(userData)
             }
-            // Done?
+            is RegistrationState.GenreSelection -> {
+                _registrationState.value = RegistrationState.GenreSubmission(userData)
+            }
         }
     }
 
@@ -56,9 +68,11 @@ class RegistrationViewModel : ViewModel(),
             is RegistrationState.EmailEntry -> {
                 _registrationState.value = RegistrationState.UserNameEntry(RegistrationData())
             }
-            is RegistrationState.GenreSelection -> {
+            is RegistrationState.GenreSelection,
+            is RegistrationState.GenreSubmission -> {
                 _registrationState.value = RegistrationState.EmailEntry(RegistrationData())
             }
+            else -> { /* no-op */ }
         }
     }
 }
