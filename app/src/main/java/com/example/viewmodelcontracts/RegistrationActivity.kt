@@ -3,6 +3,7 @@ package com.example.viewmodelcontracts
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -76,7 +77,11 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun displayRegistrationResults(userData: RegistrationData) {
-        //TODO: display results in a dialog in lieu of moving to the next part of the 'app'
+        AlertDialog.Builder(this)
+            .setTitle("Registration Results")
+            .setMessage(userData.toString())
+            .setPositiveButton("Ok", null)
+            .show()
     }
 
 }
