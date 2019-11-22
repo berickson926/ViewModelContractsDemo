@@ -8,12 +8,12 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.viewModelContract
 import com.example.viewmodelcontracts.registerViewModelContract
+import com.example.viewmodelcontracts.viewModelContract
 
 class RegistrationProgressFragment : Fragment() {
 
-    private lateinit var viewModel: RegistrationProgressViewModel
+    private lateinit var viewModelContract: RegistrationProgressViewModel
 
     private val userNameComplete by lazy { view?.findViewById<ImageView>(R.id.user_name_state) }
     private val emailComplete by lazy { view?.findViewById<ImageView>(R.id.email_state) }
@@ -27,11 +27,11 @@ class RegistrationProgressFragment : Fragment() {
         return inflater.inflate(R.layout.registration_progress_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = viewModelContract()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModelContract = viewModelContract()
 
-        viewModel.registrationProgress.observe(this, Observer {
+        viewModelContract.registrationProgress.observe(this, Observer {
             userNameComplete?.setVisibility(it.userName)
             emailComplete?.setVisibility(it.email)
             genreComplete?.setVisibility(it.genres)
@@ -48,9 +48,9 @@ class RegistrationProgressFragment : Fragment() {
     }
 
     companion object {
-        fun <T: RegistrationProgressViewModel> newInstance(parentViewModel: Class<T>): RegistrationProgressFragment {
+        fun <T: RegistrationProgressViewModel> newInstance(contract: Class<T>): RegistrationProgressFragment {
             return RegistrationProgressFragment().apply {
-                arguments = registerViewModelContract(parentViewModel)
+                arguments = registerViewModelContract(contract)
             }
         }
     }

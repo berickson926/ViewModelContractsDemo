@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.viewModelContract
 import com.example.viewmodelcontracts.registerViewModelContract
+import com.example.viewmodelcontracts.viewModelContract
 import com.google.android.material.textfield.TextInputEditText
 
 
 class EmailEntryFragment : Fragment() {
 
-    private lateinit var viewModel: EmailEntryViewModel
+    private lateinit var viewModelContract: EmailEntryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,13 +28,15 @@ class EmailEntryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelContract = viewModelContract()
+
         val userNameEntry = view.findViewById<TextInputEditText>(R.id.email_entry)
 
         userNameEntry.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(input: Editable?) {
                 val email = input?.toString() ?: ""
-                viewModel.updateEmail(email)
+                viewModelContract.updateEmail(email)
             }
 
             override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -43,16 +45,11 @@ class EmailEntryFragment : Fragment() {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = viewModelContract()
-    }
-
     companion object {
 
-        fun <T : EmailEntryViewModel> newInstance(parentViewModel: Class<T>): EmailEntryFragment {
+        fun <T : EmailEntryViewModel> newInstance(contract: Class<T>): EmailEntryFragment {
             return EmailEntryFragment().apply {
-                arguments = registerViewModelContract(parentViewModel)
+                arguments = registerViewModelContract(contract)
             }
         }
     }

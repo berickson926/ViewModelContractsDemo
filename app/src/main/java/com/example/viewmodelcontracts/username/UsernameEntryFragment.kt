@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.viewModelContract
 import com.example.viewmodelcontracts.registerViewModelContract
+import com.example.viewmodelcontracts.viewModelContract
 import com.google.android.material.textfield.TextInputEditText
 
 
 class UsernameEntryFragment : Fragment() {
 
-    private lateinit var viewModel: UsernameEntryViewModel
+    private lateinit var viewModelContract: UsernameEntryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,25 +28,20 @@ class UsernameEntryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userNameEntry = view.findViewById<TextInputEditText>(R.id.user_name_entry)
+        viewModelContract = viewModelContract()
 
+        val userNameEntry = view.findViewById<TextInputEditText>(R.id.user_name_entry)
         userNameEntry.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(input: Editable?) {
                 val username = input?.toString() ?: ""
-                viewModel.updateUsername(username)
+                viewModelContract.updateUsername(username)
             }
 
             override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         })
-    }
-
-    // TODO: maybe move to onViewCreated
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = viewModelContract()
     }
 
     companion object {
