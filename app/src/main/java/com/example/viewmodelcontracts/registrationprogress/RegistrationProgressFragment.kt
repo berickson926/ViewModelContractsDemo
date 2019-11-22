@@ -8,8 +8,8 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.parentViewModel
-import com.example.viewmodelcontracts.registerParentViewModel
+import com.example.viewmodelcontracts.viewModelContract
+import com.example.viewmodelcontracts.registerViewModelContract
 
 class RegistrationProgressFragment : Fragment() {
 
@@ -29,7 +29,7 @@ class RegistrationProgressFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = parentViewModel()
+        viewModel = viewModelContract()
 
         viewModel.registrationProgress.observe(this, Observer {
             userNameComplete?.setVisibility(it.userName)
@@ -50,7 +50,7 @@ class RegistrationProgressFragment : Fragment() {
     companion object {
         fun <T: RegistrationProgressViewModel> newInstance(parentViewModel: Class<T>): RegistrationProgressFragment {
             return RegistrationProgressFragment().apply {
-                arguments = registerParentViewModel(parentViewModel)
+                arguments = registerViewModelContract(parentViewModel)
             }
         }
     }

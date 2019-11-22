@@ -18,6 +18,8 @@ class RegistrationViewModel : ViewModel(),
     GenreSubmissionViewModel {
 
     private val _registrationState = MutableLiveData<RegistrationState>()
+    private val _shouldSubmitGenereSelections = MutableLiveData<Boolean>()
+
     val registrationState: LiveData<RegistrationState> = _registrationState
 
     override val registrationProgress: LiveData<Progress> =
@@ -41,6 +43,9 @@ class RegistrationViewModel : ViewModel(),
         _registrationState.value?.userData?.email = email
     }
 
+    override val shouldSubmitGenreSelections: LiveData<Boolean>
+        get() = _shouldSubmitGenereSelections
+
     override fun submitGenreSelections(genres: List<String>) {
         val userData = _registrationState.value?.userData.apply {
             this?.genres = genres
@@ -58,19 +63,20 @@ class RegistrationViewModel : ViewModel(),
                 _registrationState.value = RegistrationState.GenreSelection(userData)
             }
             is RegistrationState.GenreSelection -> {
-                _registrationState.value = RegistrationState.GenreSubmission(userData)
+                _shouldSubmitGenereSelections.value = true
             }
         }
     }
 
     fun onBack() {
+        val userData = _registrationState.value?.userData ?: RegistrationData()
         when (_registrationState.value) {
             is RegistrationState.EmailEntry -> {
-                _registrationState.value = RegistrationState.UserNameEntry(RegistrationData())
+                _registrationState.value = RegistrationState.UserNameEntry(userData)
             }
             is RegistrationState.GenreSelection,
             is RegistrationState.GenreSubmission -> {
-                _registrationState.value = RegistrationState.EmailEntry(RegistrationData())
+                _registrationState.value = RegistrationState.EmailEntry(userData)
             }
             else -> { /* no-op */ }
         }

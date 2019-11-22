@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.parentViewModel
-import com.example.viewmodelcontracts.registerParentViewModel
+import com.example.viewmodelcontracts.viewModelContract
+import com.example.viewmodelcontracts.registerViewModelContract
 
 
 class GenreSelectionFragment : Fragment() {
 
+    //viewModelContract
     private lateinit var parentViewModel: GenreSubmissionViewModel
 
     private val viewModel by viewModels<GenreSelectionViewModel>()
@@ -28,7 +30,7 @@ class GenreSelectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with (view) {
+        with(view) {
             findViewById<CheckBox>(R.id.android_label).setOnClickListener {
                 setGenreSelection(it as CheckBox)
             }
@@ -39,15 +41,18 @@ class GenreSelectionFragment : Fragment() {
                 setGenreSelection(it as CheckBox)
             }
         }
+
+        with(parentViewModel) {
+            shouldSubmitGenreSelections.observe(this@GenreSelectionFragment) {
+                submitGenreSelections(viewModel.getSelections())
+            }
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        parentViewModel = parentViewModel()
-    }
-
-    fun submitGenreSelections() {
-        parentViewModel.submitGenreSelections(viewModel.getSelections())
+        parentViewModel = viewModelContract()
     }
 
     private fun setGenreSelection(checkBox: CheckBox) {
@@ -63,7 +68,7 @@ class GenreSelectionFragment : Fragment() {
 
         fun <T : GenreSubmissionViewModel> newInstance(parentViewModel: Class<T>): GenreSelectionFragment {
             return GenreSelectionFragment().apply {
-                arguments = registerParentViewModel(parentViewModel)
+                arguments = registerViewModelContract(parentViewModel)
             }
         }
     }

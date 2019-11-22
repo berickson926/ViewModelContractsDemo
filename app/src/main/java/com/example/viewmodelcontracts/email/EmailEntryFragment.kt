@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.parentViewModel
-import com.example.viewmodelcontracts.registerParentViewModel
+import com.example.viewmodelcontracts.viewModelContract
+import com.example.viewmodelcontracts.registerViewModelContract
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -45,14 +45,14 @@ class EmailEntryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = parentViewModel()
+        viewModel = viewModelContract()
     }
 
     companion object {
 
         fun <T : EmailEntryViewModel> newInstance(parentViewModel: Class<T>): EmailEntryFragment {
             return EmailEntryFragment().apply {
-                arguments = registerParentViewModel(parentViewModel)
+                arguments = registerViewModelContract(parentViewModel)
             }
         }
     }

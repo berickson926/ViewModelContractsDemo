@@ -54,9 +54,6 @@ class RegistrationActivity : AppCompatActivity() {
                     val fragment = GenreSelectionFragment.newInstance(viewModel::class.java)
                     displayRegistrationStep(fragment)
                 }
-                is RegistrationState.GenreSubmission -> {
-                    requestGenreSelections()
-                }
                 is RegistrationState.Complete -> {
                     displayRegistrationResults(state.userData)
                 }
@@ -68,12 +65,6 @@ class RegistrationActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.registration_step_container, fragment)
             .commit()
-    }
-
-    private fun requestGenreSelections() {
-        val genreSelectionFragment =
-            supportFragmentManager.findFragmentById(R.id.registration_step_container) as GenreSelectionFragment
-        genreSelectionFragment.submitGenreSelections()
     }
 
     private fun displayRegistrationResults(userData: RegistrationData) {

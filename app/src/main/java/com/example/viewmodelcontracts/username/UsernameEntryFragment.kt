@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.viewmodelcontracts.R
-import com.example.viewmodelcontracts.parentViewModel
-import com.example.viewmodelcontracts.registerParentViewModel
+import com.example.viewmodelcontracts.viewModelContract
+import com.example.viewmodelcontracts.registerViewModelContract
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -43,15 +43,16 @@ class UsernameEntryFragment : Fragment() {
         })
     }
 
+    // TODO: maybe move to onViewCreated
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = parentViewModel()
+        viewModel = viewModelContract()
     }
 
     companion object {
         fun <T : UsernameEntryViewModel> newInstance(parentViewModel: Class<T>): UsernameEntryFragment {
             return UsernameEntryFragment().apply {
-                arguments = registerParentViewModel(parentViewModel)
+                arguments = registerViewModelContract(parentViewModel)
             }
         }
     }

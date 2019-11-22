@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-const val PARENT_VM_KEY = "parent_vm"
+private const val VIEW_MODEL_CONTRACT_KEY = "view_model_contract_key"
 
 @Suppress("UNCHECKED_CAST")
-fun <T> Fragment.parentViewModel(): T {
-    val clazz: Class<ViewModel> = arguments?.getSerializable(PARENT_VM_KEY) as Class<ViewModel>
+fun <T> Fragment.viewModelContract(): T {
+    val clazz: Class<ViewModel> = arguments?.getSerializable(VIEW_MODEL_CONTRACT_KEY) as Class<ViewModel>
 
     val viewModelProvider = parentFragment?.let { parent ->
         ViewModelProvider(parent)
@@ -18,8 +18,8 @@ fun <T> Fragment.parentViewModel(): T {
     return viewModelProvider.get(clazz) as T
 }
 
-fun <T> registerParentViewModel(parent: Class<T>): Bundle {
+fun <T> registerViewModelContract(viewModelContract: Class<T>): Bundle {
     return Bundle().apply {
-        putSerializable(PARENT_VM_KEY, parent)
+        putSerializable(VIEW_MODEL_CONTRACT_KEY, viewModelContract)
     }
 }
