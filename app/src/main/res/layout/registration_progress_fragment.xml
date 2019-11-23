@@ -71,7 +71,7 @@
       android:id="@+id/genre_selection"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="@string/selected_genres"
+      android:text="@string/selected_interests"
       android:clickable="true"
       android:focusable="true"
       android:paddingTop="10dp"

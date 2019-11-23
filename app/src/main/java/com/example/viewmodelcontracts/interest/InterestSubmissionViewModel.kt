@@ -1,10 +1,9 @@
-package com.example.viewmodelcontracts.genre
+package com.example.viewmodelcontracts.interest
 
 import androidx.lifecycle.LiveData
 
 
-interface GenreSubmissionViewModel {
-
+interface InterestSubmissionViewModel {
 
     val shouldSubmitGenreSelections: LiveData<Boolean>
 

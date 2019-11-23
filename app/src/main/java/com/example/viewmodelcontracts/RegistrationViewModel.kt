@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.viewmodelcontracts.email.EmailEntryViewModel
-import com.example.viewmodelcontracts.genre.GenreSubmissionViewModel
+import com.example.viewmodelcontracts.interest.InterestSubmissionViewModel
 import com.example.viewmodelcontracts.registrationprogress.Progress
 import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressViewModel
 import com.example.viewmodelcontracts.username.UsernameEntryViewModel
@@ -15,7 +15,7 @@ class RegistrationViewModel : ViewModel(),
     RegistrationProgressViewModel,
     UsernameEntryViewModel,
     EmailEntryViewModel,
-    GenreSubmissionViewModel {
+    InterestSubmissionViewModel {
 
     private val _registrationState = MutableLiveData<RegistrationState>()
     private val _shouldSubmitGenereSelections = MutableLiveData<Boolean>()
@@ -27,7 +27,7 @@ class RegistrationViewModel : ViewModel(),
             Progress(
                 userName = state.userData.username.isNotBlank(),
                 email = state.userData.email.isNotBlank(),
-                genres = state.userData.genres.isNotEmpty()
+                genres = state.userData.interests.isNotEmpty()
             )
         }
 
@@ -48,7 +48,7 @@ class RegistrationViewModel : ViewModel(),
 
     override fun submitGenreSelections(genres: List<String>) {
         val userData = _registrationState.value?.userData.apply {
-            this?.genres = genres
+            this?.interests = genres
         }
         _registrationState.value = userData?.let { RegistrationState.Complete(it) }
     }
@@ -74,8 +74,7 @@ class RegistrationViewModel : ViewModel(),
             is RegistrationState.EmailEntry -> {
                 _registrationState.value = RegistrationState.UserNameEntry(userData)
             }
-            is RegistrationState.GenreSelection,
-            is RegistrationState.GenreSubmission -> {
+            is RegistrationState.GenreSelection -> {
                 _registrationState.value = RegistrationState.EmailEntry(userData)
             }
             else -> { /* no-op */ }

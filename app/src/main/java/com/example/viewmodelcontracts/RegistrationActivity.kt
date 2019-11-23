@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.email.EmailEntryFragment
-import com.example.viewmodelcontracts.genre.GenreSelectionFragment
+import com.example.viewmodelcontracts.interest.InterestSelectionFragment
 import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressFragment
 import com.example.viewmodelcontracts.username.UsernameEntryFragment
 
@@ -51,7 +51,7 @@ class RegistrationActivity : AppCompatActivity() {
                     displayRegistrationStep(fragment)
                 }
                 is RegistrationState.GenreSelection -> {
-                    val fragment = GenreSelectionFragment.newInstance(viewModel::class.java)
+                    val fragment = InterestSelectionFragment.newInstance(viewModel::class.java)
                     displayRegistrationStep(fragment)
                 }
                 is RegistrationState.Complete -> {

@@ -1,9 +1,9 @@
-package com.example.viewmodelcontracts.genre
+package com.example.viewmodelcontracts.interest
 
 import androidx.lifecycle.ViewModel
 
 
-class GenreSelectionViewModel : ViewModel() {
+class InterestSelectionViewModel : ViewModel() {
 
     private val _genreSelections: MutableSet<String> = mutableSetOf()
 

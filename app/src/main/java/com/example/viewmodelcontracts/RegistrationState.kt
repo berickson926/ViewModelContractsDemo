@@ -9,8 +9,6 @@ sealed class RegistrationState(val userData: RegistrationData) {
 
     class GenreSelection(userData: RegistrationData) : RegistrationState(userData)
 
-    class GenreSubmission(userData: RegistrationData): RegistrationState(userData)
-
     class Complete(userData: RegistrationData): RegistrationState(userData)
 
 }

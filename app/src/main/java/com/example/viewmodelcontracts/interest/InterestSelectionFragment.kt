@@ -1,4 +1,4 @@
-package com.example.viewmodelcontracts.genre
+package com.example.viewmodelcontracts.interest
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +13,11 @@ import com.example.viewmodelcontracts.registerViewModelContract
 import com.example.viewmodelcontracts.viewModelContract
 
 
-class GenreSelectionFragment : Fragment() {
+class InterestSelectionFragment : Fragment() {
 
-    private lateinit var viewModelContract: GenreSubmissionViewModel
+    private lateinit var viewModelContract: InterestSubmissionViewModel
 
-    private val viewModel by viewModels<GenreSelectionViewModel>()
+    private val viewModel by viewModels<InterestSelectionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,7 @@ class GenreSelectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         viewModelContract = viewModelContract()
 
         with(view) {
@@ -45,7 +45,7 @@ class GenreSelectionFragment : Fragment() {
         }
 
         with(viewModelContract) {
-            shouldSubmitGenreSelections.observe(this@GenreSelectionFragment) {
+            shouldSubmitGenreSelections.observe(this@InterestSelectionFragment) {
                 submitGenreSelections(viewModel.getSelections())
             }
         }
@@ -62,8 +62,8 @@ class GenreSelectionFragment : Fragment() {
 
     companion object {
 
-        fun <T : GenreSubmissionViewModel> newInstance(contract: Class<T>): GenreSelectionFragment {
-            return GenreSelectionFragment().apply {
+        fun <T : InterestSubmissionViewModel> newInstance(contract: Class<T>): InterestSelectionFragment {
+            return InterestSelectionFragment().apply {
                 arguments = registerViewModelContract(contract)
             }
         }
