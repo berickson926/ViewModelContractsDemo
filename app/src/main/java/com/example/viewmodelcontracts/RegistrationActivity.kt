@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.viewmodelcontracts.email.EmailEntryFragment
 import com.example.viewmodelcontracts.interest.InterestSelectionFragment
-import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressFragment
+import com.example.viewmodelcontracts.progress.ProgressFragment
 import com.example.viewmodelcontracts.username.UsernameEntryFragment
 
 class RegistrationActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<RegistrationViewModel>()
+    private val viewModel by viewModels<ViewModelContract>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun setupRegistrationProgress() {
-        val registrationProgress = RegistrationProgressFragment.newInstance(viewModel::class.java)
+        val registrationProgress = ProgressFragment.newInstance(viewModel::class.java)
         supportFragmentManager.beginTransaction()
             .add(R.id.registration_progress, registrationProgress)
             .commit()

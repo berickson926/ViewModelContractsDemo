@@ -1,4 +1,4 @@
-package com.example.viewmodelcontracts.registrationprogress
+package com.example.viewmodelcontracts.progress
 
 import androidx.lifecycle.LiveData
 
@@ -8,7 +8,7 @@ data class Progress(
     val genres: Boolean = false
 )
 
-interface RegistrationProgressViewModel {
+interface ProgressViewModelContract {
 
     val registrationProgress: LiveData<Progress>
 

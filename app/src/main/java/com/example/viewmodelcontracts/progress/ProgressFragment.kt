@@ -1,4 +1,4 @@
-package com.example.viewmodelcontracts.registrationprogress
+package com.example.viewmodelcontracts.progress
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import com.example.viewmodelcontracts.R
 import com.example.viewmodelcontracts.registerViewModelContract
 import com.example.viewmodelcontracts.viewModelContract
 
-class RegistrationProgressFragment : Fragment() {
+class ProgressFragment : Fragment() {
 
-    private lateinit var viewModelContract: RegistrationProgressViewModel
+    private lateinit var viewModelContract: ProgressViewModelContract
 
     private val userNameComplete by lazy { view?.findViewById<ImageView>(R.id.user_name_state) }
     private val emailComplete by lazy { view?.findViewById<ImageView>(R.id.email_state) }
@@ -48,8 +48,8 @@ class RegistrationProgressFragment : Fragment() {
     }
 
     companion object {
-        fun <T: RegistrationProgressViewModel> newInstance(contract: Class<T>): RegistrationProgressFragment {
-            return RegistrationProgressFragment().apply {
+        fun <T: ProgressViewModelContract> newInstance(contract: Class<T>): ProgressFragment {
+            return ProgressFragment().apply {
                 arguments = registerViewModelContract(contract)
             }
         }

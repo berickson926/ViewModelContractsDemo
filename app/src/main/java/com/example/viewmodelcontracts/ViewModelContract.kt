@@ -6,13 +6,13 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.viewmodelcontracts.email.EmailEntryViewModel
 import com.example.viewmodelcontracts.interest.InterestSubmissionViewModel
-import com.example.viewmodelcontracts.registrationprogress.Progress
-import com.example.viewmodelcontracts.registrationprogress.RegistrationProgressViewModel
+import com.example.viewmodelcontracts.progress.Progress
+import com.example.viewmodelcontracts.progress.ProgressViewModelContract
 import com.example.viewmodelcontracts.username.UsernameEntryViewModel
 
 
-class RegistrationViewModel : ViewModel(),
-    RegistrationProgressViewModel,
+class ViewModelContract : ViewModel(),
+    ProgressViewModelContract,
     UsernameEntryViewModel,
     EmailEntryViewModel,
     InterestSubmissionViewModel {
