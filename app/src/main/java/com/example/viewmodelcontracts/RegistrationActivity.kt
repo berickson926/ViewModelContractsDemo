@@ -14,7 +14,7 @@ import com.example.viewmodelcontracts.username.UsernameEntryFragment
 
 class RegistrationActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<ViewModelContract>()
+    private val viewModel by viewModels<RegistrationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

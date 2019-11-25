@@ -11,7 +11,7 @@ import com.example.viewmodelcontracts.progress.ProgressViewModelContract
 import com.example.viewmodelcontracts.username.UsernameEntryViewModel
 
 
-class ViewModelContract : ViewModel(),
+class RegistrationViewModel : ViewModel(),
     ProgressViewModelContract,
     UsernameEntryViewModel,
     EmailEntryViewModel,
